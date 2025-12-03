@@ -1,8 +1,8 @@
 
 require('dotenv').config({ quiet: true })
 const app = require('./app')
-const port = process.env.PORT || 4000
-const hostname = '127.0.0.1'
+const PORT = process.env.PORT || 4000
+const HOSTNAME = "0.0.0.0"
 
 
 // Home Page Routes
@@ -22,8 +22,8 @@ app.use((err, req, res, next) => {
 })
 
 // Server Running
-app.listen(port, hostname, () => {
-    console.log(`Server running Successfull at http://${hostname}:${port}`)
+app.listen(PORT, HOSTNAME, () => {
+    console.log(`Server running Successfull at http://${HOSTNAME}:${PORT}`)
 })
 
 
