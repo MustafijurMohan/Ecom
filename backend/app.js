@@ -17,7 +17,7 @@ const router = require('./src/routes/api')
 // Security middleware Implement
 app.use(mongoSanitize())
 app.use(helmet())
-app.use(cors())
+app.use(cors({ origin: ["http://localhost:3000", "https://your-frontend-domain.onrender.com"], credentials: true }))
 app.use(hpp())
 
 // Express Implement
