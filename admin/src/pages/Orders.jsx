@@ -30,7 +30,6 @@ const Orders = ({token}) => {
       }
   }
 
-
     // Status Update Method
 
     const statusHandler = async (e, orderId) => {
