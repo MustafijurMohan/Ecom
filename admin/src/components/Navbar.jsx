@@ -1,6 +1,7 @@
 import { assets } from "../assets/assets"
 
 
+
 const Navbar = ({setToken}) => {
   return (
     <>

@@ -3,7 +3,8 @@ import { useEffect } from "react"
 import { toast } from "react-toastify"
 import { useState } from "react"
 import { assets } from "../assets/assets"
-const url = 'http://localhost:3000/api/v1'
+import { backendUrl } from "../App"
+// const url = 'http://localhost:3000/api/v1'
 
 
 const Orders = ({token}) => {
@@ -17,7 +18,7 @@ const Orders = ({token}) => {
         return null
       }
       try {
-        const res = await axios.post(url + '/orders-list', {}, {headers: {token}})
+        const res = await axios.post(backendUrl + '/orders-list', {}, {headers: {token}})
         if (res.data.success) {
           setOrders(res.data.orders)
         } else {
@@ -34,7 +35,7 @@ const Orders = ({token}) => {
 
     const statusHandler = async (e, orderId) => {
       try {
-        const res = await axios.post(url + '/update-status',{orderId, status: e.target.value}, {headers: {token}})
+        const res = await axios.post(backendUrl + '/update-status',{orderId, status: e.target.value}, {headers: {token}})
         if(res.data.success) {
           await fetchAllOrders()
           toast.success(res.data.message)

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { assets } from "../assets/assets"
 import axios from 'axios'
 import { toast } from "react-toastify"
-const Url = 'http://localhost:3000/api/v1'
+// const Url = import.meta.env.VITE_BACKEND_URL
 import { backendUrl } from "../App"
 
 

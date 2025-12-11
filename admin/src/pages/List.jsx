@@ -2,7 +2,8 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { backendUrl } from '../App'
-const Url = 'http://localhost:3000/api/v1'
+// const Url = 'http://localhost:3000/api/v1'
+
 
 const List = ({token}) => {
 
@@ -11,7 +12,7 @@ const List = ({token}) => {
 
   const fetchList = async () => {
     try {
-      const res = await axios.get(Url + '/list-products', {headers: {token}})
+      const res = await axios.get(backendUrl + '/list-products', {headers: {token}})
       if (res.data.success) {
         setList(res.data.products)
       } else {
@@ -19,7 +20,7 @@ const List = ({token}) => {
       }
     } catch (error) {
       console.log(error)
-      toast.error(res.data.message)
+      // toast.error(res.data.message)
     }
   }
 
