@@ -9,7 +9,7 @@ import { useEffect } from "react"
 const Verify = () => {
 
     const [searchParams, setSearchParams] = useSearchParams()
-    const {url, token , setCartItems} = useContext(ShopContext)
+    const {backendUrl, token , setCartItems} = useContext(ShopContext)
     const navigate = useNavigate()
 
     const success = searchParams.get('success')
@@ -21,7 +21,7 @@ const Verify = () => {
                 return null
             }
 
-            const res = await axios.post(url + '/verify', {success, orderId}, {headers: {token}})
+            const res = await axios.post(backendUrl + '/verify', {success, orderId}, {headers: {token}})
             if(res.data.success) {
                 setCartItems({})
                 navigate('/orders')

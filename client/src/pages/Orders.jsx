@@ -9,7 +9,7 @@ import { toast } from 'react-toastify'
 
 const Orders = () => {
 
-  const {token, url, currency} = useContext(ShopContext)
+  const {token, backendUrl, currency} = useContext(ShopContext)
   const [orderData, setOrderData] = useState([])
 
 
@@ -19,7 +19,7 @@ const Orders = () => {
         return null
       } 
 
-      const res = await axios.post(url + '/user-order',{},{headers: {token}})
+      const res = await axios.post(backendUrl + '/user-order',{},{headers: {token}})
         if (res.data.success) {
           const allOrderItem = []
           res.data.orderData.map((order) => {

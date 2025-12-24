@@ -11,8 +11,8 @@ export const ShopProvider = ({children}) => {
 
     const currency = '$'
     const delivery_fee = 10
-    // const backendUrl = import.meta.env.BACKEND_URL
-    const url = 'http://localhost:3000/api/v1'
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    // const url = 'http://localhost:3000/api/v1'
     const [search, setSearch] = useState('')
     const [showSearch, setShowSearch] = useState(false)
     const [cartItems, setCartItems] = useState({})
@@ -20,6 +20,7 @@ export const ShopProvider = ({children}) => {
     const [token, setToken] = useState('')
     
 
+    // Add to Cart api call
     const addToCart = async (itemId, size) => {
         if(!size) {
             toast.error('Product Size Required!')
@@ -42,7 +43,7 @@ export const ShopProvider = ({children}) => {
 
         try {
             if(token){
-            await axios.post(url + '/add-cart', {itemId, size}, {headers: {token}})
+            await axios.post(backendUrl + '/add-cart', {itemId, size}, {headers: {token}})
             toast.success('Cart Add Successfull.')
         }
         } catch (error) {
@@ -52,7 +53,7 @@ export const ShopProvider = ({children}) => {
     }
 
     
-
+    // Cart Count Functionality
     const getCartCount = () => {
         let totalCount = 0
         for(const items in cartItems) {
@@ -69,6 +70,7 @@ export const ShopProvider = ({children}) => {
         return totalCount
     }
 
+    // Update Quantity api call
     const updateQuantity = async (itemId, size, quantity) => {
         let cartData = structuredClone(cartItems)
         cartData[itemId][size] = quantity
@@ -76,7 +78,7 @@ export const ShopProvider = ({children}) => {
 
         if(token) {
             try {
-                await axios.post(url + '/update-cart', {itemId, size, quantity}, {headers: {token}})
+                await axios.post(backendUrl + '/update-cart', {itemId, size, quantity}, {headers: {token}})
             } catch (error) {
                 console.log(error)
                 toast.error(error.message)
@@ -84,7 +86,7 @@ export const ShopProvider = ({children}) => {
         }
     }
 
-
+    // Cart Amount Calculation
     const getCartAmount =  () => {
         let totalAmount = 0
         for(const items in cartItems) {
@@ -106,7 +108,7 @@ export const ShopProvider = ({children}) => {
     // Get Product Data
     const getProductsData = async () => {
         try {
-            const res = await axios.get(url +'/list-products')
+            const res = await axios.get(backendUrl +'/list-products')
             if(res.data.success) {
                 setProducts(res.data.products)
             } else {
@@ -123,7 +125,7 @@ export const ShopProvider = ({children}) => {
     // get user Cart Data
     const getCartData = async (token) => {
         try {
-            const res = await axios.post(url + '/get-cart', {}, {headers: {token}})
+            const res = await axios.post(backendUrl + '/get-cart', {}, {headers: {token}})
             if(res.data.success) {
                 setCartItems(res.data.cartData)
             }
@@ -146,10 +148,10 @@ export const ShopProvider = ({children}) => {
     
     
     const value = {
-        products, currency, delivery_fee,
+        products, currency, delivery_fee, backendUrl,
         search, setSearch, showSearch, setShowSearch,
         cartItems, setCartItems, addToCart,
-        getCartCount, updateQuantity, url,
+        getCartCount, updateQuantity,
         getCartAmount, token, setToken
 
     }

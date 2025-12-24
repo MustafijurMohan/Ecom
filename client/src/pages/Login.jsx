@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router'
 const Login = () => {
 
   const [currentState, setCurrentState] = useState('Login')
-  const {token, setToken, url} = useContext(ShopContext)
+  const {token, setToken, backendUrl} = useContext(ShopContext)
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault()
     try {
       if(currentState === 'Sign Up') {
-        const res = await axios.post(url + '/register', {name, email, password})
+        const res = await axios.post(backendUrl + '/register', {name, email, password})
         if (res.data.success) {
           toast.success('Sign In Successfull.')
           setToken(res.data.token)
@@ -29,7 +29,7 @@ const Login = () => {
         }
 
       } else {
-        const res = await axios.post(url + '/login', {email, password})
+        const res = await axios.post(backendUrl + '/login', {email, password})
         if (res.data.success) {
           toast.success('Login Successfull.')
           setToken(res.data.token)

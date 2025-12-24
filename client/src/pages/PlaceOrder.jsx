@@ -12,7 +12,7 @@ import { toast } from "react-toastify"
 const PlaceOrder = () => {
 
   const [method, setMethod] = useState('cod')
-  const {products, url, token, cartItems, setCartItems, delivery_fee, getCartAmount} = useContext(ShopContext)
+  const {products, backendUrl, token, cartItems, setCartItems, delivery_fee, getCartAmount} = useContext(ShopContext)
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     firstName: '',
@@ -64,7 +64,7 @@ const PlaceOrder = () => {
 
       switch (method) {
         case 'cod':
-          const res = await axios.post(url + '/cash', orderData, {headers: {token}} )
+          const res = await axios.post(backendUrl + '/cash', orderData, {headers: {token}} )
               if(res.data.success){
                 setCartItems({})
               navigate('/orders')
@@ -75,7 +75,7 @@ const PlaceOrder = () => {
           break;
 
           case 'stripe':
-            const resStripe = await axios.post(url + '/stripe', orderData, {headers: {token}})
+            const resStripe = await axios.post(backendUrl + '/stripe', orderData, {headers: {token}})
             if (resStripe.data.success) {
               const {session_url} = resStripe.data
               window.location.replace(session_url)
